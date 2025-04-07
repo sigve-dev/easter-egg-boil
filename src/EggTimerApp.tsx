@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TimerControls } from "./Components/TimerControls";
-import { TimerDisplay } from "./Components/timerDisplay";
+import { TimerDisplay } from "./Components/TimerDisplay";
 import "./App.css";
 
 // Objekt som holder styr på hvor mange minutter eggne skal koke.
