@@ -5,7 +5,7 @@ import "./App.css";
 
 // Objekt som holder styr på hvor mange minutter eggne skal koke.
 const eggTimes = {
-  soft: 1,
+  soft: 6,
   hard: 10,
 };
 
