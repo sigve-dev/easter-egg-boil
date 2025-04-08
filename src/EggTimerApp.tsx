@@ -45,11 +45,13 @@ export default function EggTimerApp() {
   };
   
   const getChickenImage = () => {
-    if (time === 0) return "./public/images/egg_chicken.png";
-    if (isStarted) return "./public/images/impatient_chicken.png";
-    if (isHovered) return "./public/images/curious_chicken.png";
-    return "./public/images/chicken_idle.png";
-  };
+  const base = "/easter-egg-boil"; 
+
+  if (time === 0) return `${base}/images/egg_chicken.png`;
+  if (isStarted) return `${base}/images/impatient_chicken.png`;
+  if (isHovered) return `${base}/images/curious_chicken.png`;
+  return `${base}/images/chicken_idle.png`;
+};
 
   return (
     <div className="app-container">
