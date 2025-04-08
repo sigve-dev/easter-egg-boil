@@ -60,6 +60,8 @@ export default function EggTimerApp() {
 
         <img src={getChickenImage()} alt="chicken" className="chicken-image"/>
 
+        <p className="boil-text">Boil water and once you put the eggs in, click one of the buttons!</p>
+
         {/* Dersom timeren ikke er isStarted, vises knappene  */}
         {!isStarted ? (
           <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
