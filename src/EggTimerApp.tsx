@@ -45,10 +45,10 @@ export default function EggTimerApp() {
   };
   
   const getChickenImage = () => {
-    if (time === 0) return "../public/images/egg_chicken.png";
-    if (isStarted) return "../public/images/impatient_chicken.png";
-    if (isHovered) return "../public/images/curious_chicken.png";
-    return "../public/images/chicken_idle.png";
+    if (time === 0) return "./public/images/egg_chicken.png";
+    if (isStarted) return "./public/images/impatient_chicken.png";
+    if (isHovered) return "./public/images/curious_chicken.png";
+    return "./public/images/chicken_idle.png";
   };
 
   return (
