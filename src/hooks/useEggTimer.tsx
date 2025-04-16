@@ -14,7 +14,7 @@ const useEggTimer = (initialTime: number | null, isStarted: boolean) => {
 
   useEffect(() => {
     if (time === 0) {
-      const audio = new Audio("/easter-egg-boil/audio/ding.mp3");
+      const audio = new Audio("audio/ding.mp3");
       audio.play();
     }
   }, [time]);

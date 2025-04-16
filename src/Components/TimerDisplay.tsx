@@ -16,6 +16,7 @@ const TimerDisplay = ({ boilType, time, eggSize, onReset }: TimerDisplayType) =>
 
     // Henter antall sekunder
     const sec = seconds % 60;
+    
     // .padStart sørger for at det alltid er to siffer i sekundene.
     return `${min}:${sec.toString().padStart(2, "0")}`;
   };
