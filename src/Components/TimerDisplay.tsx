@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 import "../App.css";
 
 type TimerDisplayType = {
-  boilType: "soft" | "medium" | "hard" | null;
+  boilType: "soft" | "hard" | null;
   time: number | null;
-  eggSize: "small" | "medium" | "large";
+  eggSize: "small" | "large";
   onReset: () => void;
 };
 
@@ -30,9 +30,7 @@ const TimerDisplay = ({ boilType, time, eggSize, onReset }: TimerDisplayType) =>
       transition={{ duration: 0.4 }}
       className="timer-display"
     >
-      <p className="boil-text">Size: <strong>{eggSize}</strong></p>
-
-      <p className="boil-text">Boiling a <strong>{boilType}-boiled</strong> egg...</p>
+      <p className="boil-text">Boiling a <strong>{eggSize} {boilType}-boiled</strong> egg...</p>
       <p className="time-text">
         {time !== null ? formatTime(time) : "00:00"}
       </p>
