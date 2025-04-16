@@ -4,7 +4,7 @@ import "../App.css";
 type TimerDisplayType = {
   boilType: "soft" | "hard" | null;
   time: number | null;
-  eggSize: "small" | "large";
+  eggSize: "small" | "medium" | "large";
   onReset: () => void;
 };
 
