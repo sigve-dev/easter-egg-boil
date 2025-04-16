@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import "../App.css";
 
-type Props = {
-  boilType: "soft" | "hard" | null;
+type TimerDisplayType = {
+  boilType: "soft" | "medium" | "hard" | null;
   time: number | null;
+  eggSize: "small" | "medium" | "large";
   onReset: () => void;
 };
 
-export const TimerDisplay = ({ boilType, time, onReset }: Props) => {
+const TimerDisplay = ({ boilType, time, eggSize, onReset }: TimerDisplayType) => {
   const formatTime = (seconds: number) => {
     
     // Henter antall hele minutter
@@ -29,7 +30,9 @@ export const TimerDisplay = ({ boilType, time, onReset }: Props) => {
       transition={{ duration: 0.4 }}
       className="timer-display"
     >
-      <p className="boil-text">Boiling a {boilType}-boiled egg...</p>
+      <p className="boil-text">Size: <strong>{eggSize}</strong></p>
+
+      <p className="boil-text">Boiling a <strong>{boilType}-boiled</strong> egg...</p>
       <p className="time-text">
         {time !== null ? formatTime(time) : "00:00"}
       </p>
@@ -50,5 +53,7 @@ export const TimerDisplay = ({ boilType, time, onReset }: Props) => {
         </div>
       )}
     </motion.div>
-  );
-};
+  )
+}
+
+export default TimerDisplay;

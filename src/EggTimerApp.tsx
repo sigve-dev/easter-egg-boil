@@ -1,73 +1,70 @@
-import { useState, useEffect } from "react";
-import { TimerControls } from "./Components/TimerControls";
-import { TimerDisplay } from "./Components/TimerDisplay";
+import { useState } from "react";
+import TimerControls from "./Components/TimerControls";
+import TimerDisplay from "./Components/TimerDisplay";
+import { Darkmode } from "./Components/Darkmode";
+import { ChickenImage } from "./Components/ChickenImage";
+import useEggTimer from "./hooks/useEggTimer";
+import { eggTimes, EggType } from "./utilities/eggTimes";
+import EggSizeSelector from "./Components/EggSizeSelector";
 import "./App.css";
 
-// Objekt som holder styr på hvor mange minutter eggne skal koke.
-const eggTimes = {
-  soft: 1,
-  hard: 10,
-};
+function EggTimerApp() {
+    const [boilType, setBoilType] = useState<"soft" | "medium" | "hard" | null>(null);
+    const [isStarted, setIsStarted] = useState(false);
+    const { time, setTime } = useEggTimer(boilType ? eggTimes[boilType] * 60 : null, isStarted);
+    const [eggSize, setEggSize] = useState<"small" | "medium" | "large">("medium");
 
-export default function EggTimerApp() {
-  const [boilType, setBoilType] = useState<"soft" | "hard" | null>(null);
-  const [time, setTime] = useState<number | null>(null);
-  const [isStarted, setIsStarted] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  // Effekten kjører hvert sekund sålenge isStarted === true. 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (isStarted && time && time > 0) {
-      timer = setTimeout(() => setTime((t) => (t ? t - 1 : t)), 1000);
-    }
-    return () => clearTimeout(timer);
-  }, [time, isStarted]);
-
-  useEffect(() => {
-    if (time === 0) {
-      const audio = new Audio("/ding.mp3");
-      audio.play();
-    }
-  }, [time]);
-
-  // Når bruker velger eggtype, settes typen, timeren og isStarted === true;
-  const startTimer = (type: "soft" | "hard") => {
-    setBoilType(type);
-    setTime(eggTimes[type] * 60);
-    setIsStarted(true);
-  };
-
-  const resetTimer = () => {
-    setBoilType(null);
-    setTime(null);
-    setIsStarted(false);
-  };
+    // Legger på ekstra tid dersom størrelsen på egget er mindre eller større enn vanlig.
+    const getSizeModifier = (size: "small" | "medium" | "large") => {
+      if (size === "small") return -60;
+      if (size === "large") return 60;
+      return 0;
+    };
+    
+    // Når bruker velger eggtype, settes typen, timeren og isStarted === true;
+    const startTimer = (type: EggType) => {
+      const baseTime = eggTimes[type] * 60;
+      const adjustedTime = baseTime + getSizeModifier(eggSize);
+      setBoilType(type);
+      setTime(adjustedTime);
+      setIsStarted(true);
+    };
+    
   
-  const getChickenImage = () => {
-    if (time === 0) return "../public/images/egg_chicken.png";
-    if (isStarted) return "../public/images/impatient_chicken.png";
-    if (isHovered) return "../public/images/curious_chicken.png";
-    return "../public/images/chicken_idle.png";
-  };
+    const resetTimer = () => {
+        setBoilType(null);
+        setTime(null);
+        setIsStarted(false);
+    };
 
-  return (
-    <div className="app-container">
-      <div className="card">
-        <h1 className="title">Easter Egg Boil Alarm</h1>
+    return (
+        <div className="app-container">
+            <div className="card">
 
-        <img src={getChickenImage()} alt="chicken" className="chicken-image"/>
+            <Darkmode/>
 
-        {/* Dersom timeren ikke er isStarted, vises knappene  */}
-        {!isStarted ? (
-          <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <TimerControls onSelect={startTimer} />
-          </div>
-        ) : (
-          /* Dersom timeren er isStarted, vises timeren  */
-          <TimerDisplay boilType={boilType} time={time} onReset={resetTimer} />
-        )}
-      </div>
-    </div>
-  );
-}
+            <h1 className="title">Easter Egg Boil Alarm</h1>
+
+            <ChickenImage isStarted={isStarted} time={time} />
+
+            {!isStarted && (
+                <EggSizeSelector eggSize={eggSize} onSelect={setEggSize} />
+            )}
+
+            {/* Dersom timeren ikke er isStarted, vises knappene  */}
+            {!isStarted ? (
+                <>
+                    <p className="boil-text">Boil water and once you put the eggs in, click one of the buttons!</p>
+                    <TimerControls onSelect={startTimer} />   
+                </>                 
+
+            ) : (
+                /* Dersom timeren er isStarted, vises timeren  */
+                <TimerDisplay boilType={boilType} time={time} eggSize={eggSize} onReset={resetTimer} />
+            )}
+            </div>
+        </div>
+    );
+} 
+
+export default EggTimerApp;

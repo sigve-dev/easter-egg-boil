@@ -1,15 +1,18 @@
 import "../App.css";
 
-type Props = {
-  onSelect: (type: "soft" | "hard") => void;
+type TimerControlType = {
+    onSelect: (type: "soft" | "medium" | "hard") => void;
 };
 
-export const TimerControls = ({ onSelect }: Props) => (
-  <div className="button-group">
-    <button className="button start" onClick={() => onSelect("soft")}>Soft-Boiled
-    </button>
-    <button
-      className="button start" onClick={() => onSelect("hard")}>Hard-Boiled
-    </button>
-  </div>
-);
+const TimerControls = ({ onSelect }: TimerControlType) => (
+    <div className="button-group">
+        <button className="button start" onClick={
+            () => onSelect("soft")}>Soft-Boiled</button>
+        <button className="button start" onClick={
+            () => onSelect("medium")}>Medium-Boiled</button>
+        <button className="button start" onClick={
+            () => onSelect("hard")}>Hard-Boiled</button>
+    </div>
+)
+
+export default TimerControls
