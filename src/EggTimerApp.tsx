@@ -9,7 +9,7 @@ import EggSizeSelector from "./Components/EggSizeSelector";
 import "./App.css";
 
 function EggTimerApp() {
-    const [boilType, setBoilType] = useState<"soft" | "hard" | null>(null);
+    const [boilType, setBoilType] = useState<EggType | null>(null);
     const [isStarted, setIsStarted] = useState(false);
     const { time, setTime } = useEggTimer(boilType ? eggTimes[boilType] * 60 : null, isStarted);
     const [eggSize, setEggSize] = useState<"small" | "medium" | "large">("medium");
