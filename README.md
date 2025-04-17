@@ -1,7 +1,7 @@
 # easter-egg-boil
 
 A fun little project I worked on over the easter season 2025. 
-Written in TypeScript, React, and CSS.
+Written in TypeScript, React, CSS, and motion (https://github.com/motiondivision/motion) for smooth animations.
 An animated timer for perfectly soft- or hard-boiled eggs.
 
 ### Features
